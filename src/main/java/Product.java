@@ -1,5 +1,6 @@
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "product")
@@ -12,8 +13,8 @@ public class Product {
     private String beschrijving;
     private double prijs;
 
-    @Transient
-    private ArrayList<OVChipkaart> ovChipkaarten;
+    @ManyToMany(mappedBy = "producten")
+    private List<OVChipkaart> ovChipkaarten;
 
     public Product(){}
 
@@ -66,7 +67,12 @@ public class Product {
         this.ovChipkaarten.remove(ov);
     }
 
-    public ArrayList<OVChipkaart> getOVKaarten(){
+    public List<OVChipkaart> getOVKaarten(){
         return ovChipkaarten;
+    }
+
+    @Override
+    public String toString() {
+        return "#" + productNummer +" " + beschrijving + " - " + prijs;
     }
 }

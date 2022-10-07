@@ -1,6 +1,8 @@
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "ov_chipkaart")
@@ -13,10 +15,13 @@ public class OVChipkaart {
     private LocalDate geldigTot;
     private int klasse;
     private double saldo;
-    @Transient
+
+    @ManyToOne
+    @JoinColumn(name = "reiziger_id")
     private Reiziger reiziger;
-    @Transient
-    private ArrayList<Product> producten;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Product> producten;
 
     public OVChipkaart(){}
 
@@ -55,7 +60,7 @@ public class OVChipkaart {
         return "Kaartnummer: " + kaartNummer + " - " + klasse + "e klasse, saldo: " + saldo + "\n deze kaart is van: " + reiziger;
     }
 
-    public ArrayList<Product> getProducten(){
+    public List<Product> getProducten(){
         return this.producten;
     }
 
@@ -66,4 +71,11 @@ public class OVChipkaart {
     public void verwijderProduct(Product product){
         this.producten.remove(product);
     }
+
+
+    public int getReizigerId(){
+        return reiziger.getId();
+    }
+
+
 }

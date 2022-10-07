@@ -1,6 +1,7 @@
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "reiziger")
@@ -12,12 +13,17 @@ public class Reiziger {
     private String voorletters;
     private String tussenvoegsel;
     private String achternaam;
-    @Transient
     private LocalDate geboortedatum;
-    @Transient
+
+    @OneToOne(
+            mappedBy = "reiziger",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
     private Adres adres;
-    @Transient
-    private ArrayList<OVChipkaart> OVChipkaarten;
+
+    @OneToMany(mappedBy = "reiziger", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OVChipkaart> OVChipkaarten;
 
     public Reiziger(){}
 
@@ -90,7 +96,11 @@ public class Reiziger {
         this.OVChipkaarten.add(ov);
     }
 
-    public ArrayList<OVChipkaart> getOVKaarten(){
+    public void removeOVChipkaart(OVChipkaart ov){
+        this.OVChipkaarten.remove(ov);
+    }
+
+    public List<OVChipkaart> getOVKaarten(){
         return this.OVChipkaarten;
     }
 }
