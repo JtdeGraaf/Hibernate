@@ -2,6 +2,9 @@ package reiziger;
 
 import org.hibernate.Session;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 public class ReizigerDAOHibernate implements ReizigerDAO {
@@ -20,6 +23,7 @@ public class ReizigerDAOHibernate implements ReizigerDAO {
         }
         catch (Exception e) {
             session.getTransaction().rollback();
+            e.printStackTrace();
             return false;
         }
         return true;
@@ -69,11 +73,30 @@ public class ReizigerDAOHibernate implements ReizigerDAO {
 
     @Override
     public List<Reiziger> findByGbdatum(String geboortedatum) {
-        return null;
+        try {
+            session.beginTransaction();
+            List reizigers = session.createQuery("from Reiziger where geboortedatum = ?1").setParameter(1, LocalDate.parse(geboortedatum)).list();
+            session.getTransaction().commit();
+            return reizigers;
+        }
+        catch (Exception e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public List<Reiziger> findAll() {
-        return null;
+        try {
+            session.beginTransaction();
+            List reizigers = session.createQuery("from Reiziger").list();
+            session.getTransaction().commit();
+            return reizigers;
+        }
+        catch (Exception e) {
+            session.getTransaction().rollback();
+            return null;
+        }
     }
 }

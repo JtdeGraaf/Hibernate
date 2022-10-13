@@ -8,6 +8,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 @Entity
 @Table(name = "reiziger")
 public class Reiziger {
@@ -18,6 +20,7 @@ public class Reiziger {
     private String voorletters;
     private String tussenvoegsel;
     private String achternaam;
+    @Column(name = "geboortedatum")
     private LocalDate geboortedatum;
 
     @OneToOne(

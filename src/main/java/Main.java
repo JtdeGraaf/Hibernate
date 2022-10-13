@@ -3,10 +3,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
+import reiziger.Reiziger;
+import reiziger.ReizigerDAOHibernate;
 
 import javax.persistence.metamodel.EntityType;
 import javax.persistence.metamodel.Metamodel;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 
 /**
@@ -41,6 +44,7 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
         testFetchAll();
+        testReizigerDAO();
     }
 
     /**
@@ -62,5 +66,26 @@ public class Main {
         } finally {
             session.close();
         }
+    }
+
+    private static void testReizigerDAO(){
+        Session session = getSession();
+        ReizigerDAOHibernate rdao = new ReizigerDAOHibernate(session);
+        System.out.println("\nReizigerDAO findall test:");
+        System.out.println(rdao.findAll());
+        System.out.println("\nReizigerDAO findbyGB test:");
+        System.out.println(rdao.findByGbdatum("2000-10-10"));
+        System.out.println("\nReizigerDAO findById test:");
+        System.out.println(rdao.findById(100));
+        System.out.println("\nReizigerDAO save test:");
+        System.out.print("Eerst " + rdao.findAll().size() + " reizigers --- na ");
+        Reiziger r = new Reiziger("K", "de", "Jong", LocalDate.of(2000, 11, 11));
+        rdao.save(r);
+        System.out.print(rdao.findAll().size() + " reizigers");
+        System.out.println("\n\nReizigerDAO delete test:");
+        System.out.print("Eerst " + rdao.findAll().size() + " reizigers --- na ");
+        rdao.delete(r);
+        System.out.print(rdao.findAll().size() + " reizigers");
+
     }
 }
