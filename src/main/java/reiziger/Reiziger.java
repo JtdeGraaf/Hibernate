@@ -1,3 +1,8 @@
+package reiziger;
+
+import adres.Adres;
+import ovchipkaart.OVChipkaart;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -75,7 +80,7 @@ public class Reiziger {
                 .append(" (")
                 .append(geboortedatum);
         if(adres != null) {
-            reiziger.append(") - Adres: #")
+            reiziger.append(") - adres.Adres: #")
                     .append(adres.getId())
                     .append(" ")
                     .append(adres.getPostcode());

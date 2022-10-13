@@ -1,3 +1,7 @@
+package product;
+
+import ovchipkaart.OVChipkaart;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;

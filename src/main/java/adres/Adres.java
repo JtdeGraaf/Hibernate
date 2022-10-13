@@ -1,3 +1,7 @@
+package adres;
+
+import reiziger.Reiziger;
+
 import javax.persistence.*;
 
 @Entity
