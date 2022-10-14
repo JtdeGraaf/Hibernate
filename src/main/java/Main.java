@@ -1,3 +1,5 @@
+import adres.Adres;
+import adres.AdresDAOHibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -45,6 +47,7 @@ public class Main {
     public static void main(String[] args) throws SQLException {
         testFetchAll();
         testReizigerDAO();
+        testAdresDAO();
     }
 
     /**
@@ -86,6 +89,26 @@ public class Main {
         System.out.print("Eerst " + rdao.findAll().size() + " reizigers --- na ");
         rdao.delete(r);
         System.out.print(rdao.findAll().size() + " reizigers");
+
+    }
+
+    private static void testAdresDAO(){
+        Session session = getSession();
+        ReizigerDAOHibernate rdao = new ReizigerDAOHibernate(session);
+        AdresDAOHibernate adao = new AdresDAOHibernate(session);
+        System.out.println("\n\nAdresDAO findall test:");
+        System.out.println(adao.findAll());
+        System.out.println("\nAdresDAO findByReiziger test:");
+        System.out.println(adao.findByReiziger(rdao.findById(1)));
+        System.out.println("\nAdresDAO save test:");
+        System.out.print("Eerst " + adao.findAll().size() + " adressem --- na ");
+        Adres a = new Adres("8888PP", "33", "Straat weg", "Utrecht", rdao.findById(100));
+        adao.save(a);
+        System.out.print(adao.findAll().size() + " adressen");
+        System.out.println("\n\nAdresDAO delete test:");
+        System.out.print("Eerst " + adao.findAll().size() + " adressen --- na ");
+        adao.delete(a);
+        System.out.print(adao.findAll().size() + " adressen");
 
     }
 }

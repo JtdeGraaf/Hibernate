@@ -21,12 +21,13 @@ public class Adres {
 
     public Adres(){}
 
-    public Adres(String postcode, String huisnummer, String straat, String woonplaats){
+    public Adres(String postcode, String huisnummer, String straat, String woonplaats, Reiziger reiziger){
         this.id = id;
         this.postcode = postcode;
         this.huisnummer = huisnummer;
         this.straat = straat;
         this.woonplaats = woonplaats;
+        this.reiziger = reiziger;
     }
 
     public String getPostcode() {
