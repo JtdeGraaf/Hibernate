@@ -15,7 +15,7 @@ public class OVChipkaart {
     @GeneratedValue
     @Column(name = "kaart_nummer")
     private int kaartNummer;
-    @Transient
+    @Column(name = "geldig_tot")
     private LocalDate geldigTot;
     private int klasse;
     private double saldo;
@@ -25,6 +25,7 @@ public class OVChipkaart {
     private Reiziger reiziger;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "ov_chipkaart_product", joinColumns = @JoinColumn(name = "kaart_nummer"), inverseJoinColumns = @JoinColumn(name = "product_nummer"))
     private List<Product> producten;
 
     public OVChipkaart(){}
@@ -81,5 +82,8 @@ public class OVChipkaart {
         return reiziger.getId();
     }
 
+    public void setKlasse(int klasse){
+        this.klasse = klasse;
+    }
 
 }

@@ -111,4 +111,8 @@ public class Reiziger {
     public List<OVChipkaart> getOVKaarten(){
         return this.OVChipkaarten;
     }
+
+    public void setAchternaam(String achternaam){
+        this.achternaam = achternaam;
+    }
 }

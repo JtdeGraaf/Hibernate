@@ -28,6 +28,7 @@ public class Adres {
         this.straat = straat;
         this.woonplaats = woonplaats;
         this.reiziger = reiziger;
+        reiziger.setAdres(this);
     }
 
     public String getPostcode() {

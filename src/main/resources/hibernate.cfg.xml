@@ -10,10 +10,10 @@
         <property name="connection.username">postgres</property>
         <property name="connection.password">0000</property>
 
-        <mapping class="Reiziger"/>
-        <mapping class="Adres"/>
-        <mapping class="OVChipkaart"/>
-        <mapping class="Product"/>
+        <mapping class="reiziger.Reiziger"/>
+        <mapping class="adres.Adres"/>
+        <mapping class="ovchipkaart.OVChipkaart"/>
+        <mapping class="product.Product"/>
 
     </session-factory>
 </hibernate-configuration>
